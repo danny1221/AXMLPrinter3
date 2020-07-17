@@ -1,7 +1,7 @@
 package android.main;
 
 import java.io.FileInputStream;
-
+import java.io.BufferedInputStream;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.content.res.AXmlResourceParser;
@@ -14,7 +14,11 @@ public class AXMLPrinter {
 		}
 		try {
 			AXmlResourceParser parser = new AXmlResourceParser();
-			parser.open(new FileInputStream(arguments[0]));
+			if (arguments[0].equals("-")) {
+				parser.open(new BufferedInputStream(System.in));
+			} else {
+				parser.open(new FileInputStream(arguments[0]));
+			}
 			StringBuilder indent = new StringBuilder(10);
 
 			String indentStep = "\t";
